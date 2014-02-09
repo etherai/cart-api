@@ -13,6 +13,7 @@ from models import Address, Cart, Product, Order
 class AccountViewSet(viewsets.ModelViewSet):
     model = User
     serializer_class = AccountSerializer
+    permission_classes = ()
 
     def post_save(self, obj, created=False):
         if created:
