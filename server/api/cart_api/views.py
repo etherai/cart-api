@@ -15,8 +15,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
 
     def post_save(self, obj, created=False):
-        cart = Cart(user=obj)
-        cart.save()
+        if created:
+            cart = Cart(user=obj)
+            cart.save()
 
     def get_queryset(self,):
         user = self.request.user
