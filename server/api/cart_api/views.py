@@ -48,6 +48,9 @@ class CartViewSet(viewsets.ModelViewSet):
         '''
         return Response({"success":True})
 
+    def pre_save(self, obj):
+        obj.user = self.request.user
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -59,5 +62,4 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Order.objects.filter(user=self.request.user)
 
     def pre_save(self, obj):
-        import pdb; pdb.set_trace()
         obj.user = self.request.user
