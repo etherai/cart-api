@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 
 from rest_framework.decorators import action
 from rest_framework import viewsets
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from serializers import AccountSerializer, AddressSerializer, CartSerializer, ProductSerializer, OrderSerializer
+from serializers import AccountSerializer, AddressSerializer, CartSerializer, ProductSerializer, OrderSerializer, AuditSerializer
 from models import Address, Cart, Product, Order
 
 
@@ -63,3 +64,9 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.user = self.request.user
+
+
+class DetailedAccountViewSet(viewsets.ModelViewSet):
+	queryset = User.objects.all()
+	serializer_class = AuditSerializer
+	permission_classes = (IsAdminUser,)

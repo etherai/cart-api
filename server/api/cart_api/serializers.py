@@ -35,3 +35,10 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
         fields = ( 'url', 'items','cart')
+
+class AuditSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'password', 'addresses','carts')
+        write_only_fields = ('password',)
+	depth = 3
